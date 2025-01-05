@@ -1,0 +1,23 @@
+{
+  "name": "bilal-abic-blog",
+  "version": "1.0.0",
+  "description": "Bilal Abiç Kişisel Blog",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve",
+    "build": "mkdir -p dist && cp -r *.html *.css *.js assets posts dist/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bilalabic/blog.git"
+  },
+  "keywords": [
+    "blog",
+    "personal-website"
+  ],
+  "author": "Bilal Abiç",
+  "license": "MIT",
+  "dependencies": {
+    "marked": "^4.0.0"
+  }
+} 
