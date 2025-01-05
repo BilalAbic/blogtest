@@ -5,15 +5,25 @@ on:
     branches:
       - main
 
+# Token izinlerini güncelle
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # Environment'ı ekle
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3  # v2'den v3'e güncelle
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3  # v2'den v3'e güncelle
         with:
           node-version: '16'
 
@@ -30,9 +40,16 @@ jobs:
           cp robots.txt dist/
           cp sitemap.xml dist/
           
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          cname: blog.bilalabic.tech 
+          cname: blog.bilalabic.tech
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          force_orphan: true  # Temiz bir deployment için
